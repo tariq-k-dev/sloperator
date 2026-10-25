@@ -9,7 +9,7 @@ def main(argv: list[str]) -> int:
         print("usage: uv run sloperator.py <file.slop>", file=sys.stderr)
         return 2
 
-    path=Path(argv[1])
+    path = Path(argv[1])
     try:
         source = path.read_text(encoding="utf-8")
     except OSError as error:
