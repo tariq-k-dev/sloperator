@@ -1,6 +1,19 @@
 # Sloperator
 
-A SlopLang interpreter.
+A tree-walking interpreter for SlopLang, built while working through
+[Boot.dev's Learn AI Coding](https://www.boot.dev/courses/learn-ai-coding) course.
+
+Sloperator lexes, parses, and evaluates `.slop` programs with a hand-written
+scanner and recursive-descent parser, then walks the resulting AST. It ships with a
+full `pytest` suite covering the lexer, parser, evaluator, CLI, and every example
+program in `examples/`.
+
+```bash
+uv run sloperator.py examples/fizzbuzz.slop   # run a program
+uv run pytest -q                              # run the test suite
+uv run ruff check                             # lint
+uv run ruff format --check                    # formatting check
+```
 
 ## Language Reference
 
