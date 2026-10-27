@@ -1,0 +1,2 @@
+— Parentheses override the usual precedence.
+hallucinate((1 + 2) * 3)✨

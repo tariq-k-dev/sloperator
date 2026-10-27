@@ -1,0 +1,2 @@
+— Multiplication binds tighter than addition.
+hallucinate(1 + 2 * 3)✨
