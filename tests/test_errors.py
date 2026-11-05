@@ -40,6 +40,7 @@ CASES = [
         "expected '}' to close block, but reached end of file",
     ),
     ("hallucinate(nope)✨", "runtime", 1, "undefined variable 'nope'"),
+    ("hallucinate(1 / 0)✨", "runtime", 1, "division by zero"),
     ("hallucinate(later())✨\nclanker later() {\n}", "runtime", 1, "undefined variable 'later'"),
     ("clanker f() {\n}\nf = 2✨", "runtime", 3, "cannot assign to immutable binding 'f'"),
     ("slop x = 1✨\nslop x = 2✨", "runtime", 2, "'x' is already declared in this scope"),
