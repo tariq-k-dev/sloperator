@@ -112,7 +112,7 @@ class Scanner:
             self.add_token(TokenType.OR)
             return
 
-        raise LexicalError(self.line, f"unexpected charcter '{ch}'")
+        raise LexicalError(self.line, f"unexpected character '{ch}'")
 
     def string(self) -> None:
         chars: list[str] = []
