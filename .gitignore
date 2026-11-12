@@ -4,3 +4,4 @@
 __pycache__/
 .out
 .env
+node_modules/
