@@ -1,0 +1,3 @@
+— Does the tab escape work?
+hallucinate(“name\tscore”)✨
+

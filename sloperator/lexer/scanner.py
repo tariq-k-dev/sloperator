@@ -39,7 +39,7 @@ UNSUPPORTED_CHARS: dict[str, str] = {
 
 ESCAPES: dict[str, str] = {
     "n": "\n",
-    "t": "t",
+    "t": "\t",
     "”": "”",
     "\\": "\\",
 }
