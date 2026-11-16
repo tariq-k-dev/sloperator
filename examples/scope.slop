@@ -1,5 +1,5 @@
 — Every brace block is a new scope. Inner names shadow outer ones.
-slop mood = “calm”✨
+loadbearing mood = “calm”✨
 {
     slop mood = “locked in”✨
     hallucinate(mood)✨

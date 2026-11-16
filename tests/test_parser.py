@@ -64,6 +64,11 @@ def test_slop_declaration():
     assert isinstance(declaration, VarDecl) and declaration.mutable
 
 
+def test_loadbearing_declaration():
+    (declaration,) = parse_source("loadbearing a = 1✨")
+    assert isinstance(declaration, VarDecl) and not declaration.mutable
+
+
 def test_control_flow_shapes():
     (conditional, loop) = parse_source("vibe ✅ { } nah { } ralph ❌ { }")
     assert isinstance(conditional, If) and conditional.else_branch is not None
@@ -86,6 +91,11 @@ def test_function_declaration():
         ("clanker f() { ship✨ }", 1, "expected an expression, found '✨'"),
         ("slop x = 1", 1, "expected ✨ after variable declaration, but reached end of file"),
         ("slop x✨", 1, "expected '=' after variable name, an initializer is required, found '✨'"),
+        (
+            "loadbearing = 1✨",
+            1,
+            "expected a variable name after 'loadbearing', found '='",
+        ),
         ("vibe ✅ { } nah hallucinate()✨", 1, "expected '{' after nah, found 'hallucinate'"),
         ("vibe ✅ hallucinate()✨", 1, "expected '{' after vibe condition, found 'hallucinate'"),
         ("f(1,)✨", 1, "expected an expression, found ')'"),

@@ -74,6 +74,45 @@ hallucinate(x)✨"""
     assert run(source) == "2\n"
 
 
+def test_loadbearing_is_readable_and_slop_stays_mutable():
+    source = """loadbearing LIMIT = 100✨
+slop score = 10✨
+score = score + 1✨
+hallucinate(score)✨
+hallucinate(LIMIT)✨"""
+    assert run(source) == "11\n100\n"
+
+
+def test_assigning_to_loadbearing_is_an_error():
+    source = """loadbearing LIMIT = 100✨
+LIMIT = 200✨"""
+    assert fails(source) == (
+        "SlopLang runtime error at line 2: cannot assign to loadbearing 'LIMIT'"
+    )
+
+
+def test_assigning_to_loadbearing_inside_a_clanker_is_an_error():
+    source = """loadbearing LIMIT = 100✨
+clanker bump() {
+    LIMIT = 200✨
+}
+bump()✨"""
+    assert fails(source) == (
+        "SlopLang runtime error at line 3: cannot assign to loadbearing 'LIMIT'"
+    )
+
+
+def test_inner_slop_can_shadow_loadbearing():
+    source = """loadbearing LIMIT = 100✨
+{
+    slop LIMIT = 1✨
+    LIMIT = LIMIT + 1✨
+    hallucinate(LIMIT)✨
+}
+hallucinate(LIMIT)✨"""
+    assert run(source) == "2\n100\n"
+
+
 def test_loop_body_is_a_fresh_scope_each_iteration():
     source = """slop i = 0✨
 ralph i < 3 {

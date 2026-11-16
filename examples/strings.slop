@@ -1,6 +1,6 @@
 — Smart quotes and string escapes.
-slop greeting = “hello”✨
-slop name = “Boots”✨
+loadbearing greeting = “hello”✨
+loadbearing name = “Boots”✨
 hallucinate(greeting + “, ” + name + “!”)✨
 hallucinate(“quoted: \”slop\””)✨
 hallucinate(“backslash: \\”)✨

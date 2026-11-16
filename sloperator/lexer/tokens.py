@@ -29,6 +29,7 @@ class TokenType(Enum):
     IDENTIFIER = auto()
 
     SLOP = auto()
+    LOADBEARING = auto()
     CLANKER = auto()
     VIBE = auto()
     NAH = auto()
@@ -44,6 +45,7 @@ class TokenType(Enum):
 
 KEYWORDS: dict[str, TokenType] = {
     "slop": TokenType.SLOP,
+    "loadbearing": TokenType.LOADBEARING,
     "clanker": TokenType.CLANKER,
     "vibe": TokenType.VIBE,
     "nah": TokenType.NAH,

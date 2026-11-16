@@ -18,7 +18,7 @@ clanker describe(count) {
     }
 }
 
-slop MAX = 3✨
+loadbearing MAX = 3✨
 slop count = 0✨
 
 ralph count < MAX {
@@ -34,6 +34,7 @@ Prints `small slop` twice, then `big slop`.
 | SlopLang      | Conventional | Meaning                                                 |
 | ------------- | ------------ | ------------------------------------------------------- |
 | `slop`        | `let`        | Declare a mutable variable                              |
+| `loadbearing` | `const`      | Declare an immutable variable                           |
 | `clanker`     | `fn`         | Define a function                                       |
 | `vibe`        | `if`         | Conditional                                             |
 | `nah`         | `else`       | Else branch                                             |
@@ -70,18 +71,24 @@ No implicit conversions.
 
 ## Variables
 
-`slop` declares a mutable variable and requires an initializer. A scope cannot declare a name twice, but an inner block may shadow an outer name.
+`slop` declares a mutable variable, and `loadbearing` declares an immutable one. Both require an initializer, which may be any expression and is evaluated once when the declaration runs. A scope cannot declare a name twice, but an inner block may shadow an outer name.
 
 ```slop
+loadbearing LIMIT = 100✨
 slop score = 10✨
-slop LIMIT = 100✨
 score = score + 5✨
 score = score + 1✨
 ```
 
-Assignment is a statement, not an expression: `name = expression✨`. It updates the nearest existing `slop` variable. Reading or assigning an undefined name is a runtime error.
+Assignment is a statement, not an expression: `name = expression✨`. It updates the nearest existing binding. Assigning to a `loadbearing` variable is a runtime error.
 
-Every brace block is a lexical scope. Assignment searches the current scope, then each enclosing scope.
+```slop
+LIMIT = 200✨ — runtime error: cannot assign to loadbearing 'LIMIT'
+```
+
+Reading or assigning an undefined name is a runtime error.
+
+Every brace block is a lexical scope. Assignment searches the current scope, then each enclosing scope. An inner `slop` may shadow an outer `loadbearing` name.
 
 ## Control Flow
 
@@ -152,7 +159,7 @@ functionDecl   -> "clanker" IDENTIFIER "(" parameters? ")" block ;
 parameters     -> IDENTIFIER ( "," IDENTIFIER )* ;
 
 declaration    -> variableDecl | statement ;
-variableDecl   -> "slop" IDENTIFIER "=" expression "✨" ;
+variableDecl   -> ( "slop" | "loadbearing" ) IDENTIFIER "=" expression "✨" ;
 
 statement      -> assignStmt | ifStmt | loopStmt | returnStmt
                 | block | expressionStmt ;

@@ -1,0 +1,6 @@
+— loadbearing bindings are immutable; slop bindings stay mutable.
+loadbearing LIMIT = 100✨
+slop score = 10✨
+score = score + 1✨
+hallucinate(score)✨
+hallucinate(LIMIT)✨
