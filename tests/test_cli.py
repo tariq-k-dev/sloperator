@@ -34,3 +34,24 @@ def test_missing_file_and_usage():
     missing = run_cli(str(ROOT / "nope.slop"))
     assert missing.returncode == 2
     assert "could not read" in missing.stderr
+
+
+def test_check_validates_without_running(tmp_path: Path):
+    program = tmp_path / "valid.slop"
+    program.write_text("hallucinate(missing)✨\n", encoding="utf-8")
+    completed = run_cli("--check", str(program))
+    assert completed.returncode == 0
+    assert completed.stdout == ""
+    assert completed.stderr == ""
+
+
+def test_check_reports_syntax_errors_without_running(tmp_path: Path):
+    program = tmp_path / "broken.slop"
+    program.write_text("slop x = 1", encoding="utf-8")
+    completed = run_cli(str(program), "--check")
+    assert completed.returncode == 1
+    assert completed.stdout == ""
+    assert completed.stderr == (
+        "SlopLang syntax error at line 1: "
+        "expected ✨ after variable declaration, but reached end of file\n"
+    )

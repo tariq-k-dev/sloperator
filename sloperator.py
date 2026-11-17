@@ -1,22 +1,25 @@
 import sys
 from pathlib import Path
 
-from sloperator.runner import run_program
+from sloperator.runner import check_program, run_program
 
 
 def main(argv: list[str]) -> int:
-    if len(argv) != 2:
-        print("usage: uv run sloperator.py <file.slop>", file=sys.stderr)
+    args = argv[1:]
+    check_only = "--check" in args
+    paths = [arg for arg in args if arg != "--check"]
+    if len(paths) != 1:
+        print("usage: uv run sloperator.py [--check] <file.slop>", file=sys.stderr)
         return 2
 
-    path = Path(argv[1])
+    path = Path(paths[0])
     try:
         source = path.read_text(encoding="utf-8")
     except OSError as error:
         print(f"could not read '{path}': {error.strerror}", file=sys.stderr)
         return 2
 
-    error = run_program(source, sys.stdout)
+    error = check_program(source) if check_only else run_program(source, sys.stdout)
     if error is not None:
         sys.stdout.flush()
         print(error, file=sys.stderr)

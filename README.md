@@ -9,10 +9,11 @@ full `pytest` suite covering the lexer, parser, evaluator, CLI, and every exampl
 program in `examples/`.
 
 ```bash
-uv run sloperator.py examples/fizzbuzz.slop   # run a program
-uv run pytest -q                              # run the test suite
-uv run ruff check                             # lint
-uv run ruff format --check                    # formatting check
+uv run sloperator.py examples/fizzbuzz.slop         # run a program
+uv run sloperator.py --check examples/fizzbuzz.slop # check syntax only
+uv run pytest -q                                    # run the test suite
+uv run ruff check                                   # lint
+uv run ruff format --check                          # formatting check
 ```
 
 ## Language Reference
