@@ -1,6 +1,18 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "model": "opencode/deepseek-v4.1-flash-free",
+  "providers": {
+    "opencode": {
+      "models": {
+        "deepseek-v4.1-flash-free": {
+          "body": {
+            "reasoning_effort": "none",
+            "temperature": 0.1,
+          },
+        },
+      },
+    },
+  },
   "permissions": [
     {
       "action": "run_slop",
